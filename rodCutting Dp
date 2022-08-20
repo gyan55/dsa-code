@@ -1,0 +1,32 @@
+
+int solve(int price[], int ind,int target,vector<vector<int>> &dp){
+        
+        if(target == 0) return 0;
+        if(ind == 0){
+             return target*price[0]; //for last index means rod of length 1 is there so to make a target out of unit length target is multiplied
+        }
+        
+        
+        
+    if(dp[ind][target]!=-1)
+        return dp[ind][target];
+        
+        int take = INT_MIN;
+        int rodlength = ind+1;
+        if(rodlength <= target)
+        take = price[ind] + solve(price,ind,target-rodlength,dp);
+        
+        int nottake = 0+solve(price,ind-1,target,dp);
+        
+        return  dp[ind][target] = max(take,nottake);
+        
+    }
+    int cutRod(int price[], int n) {
+        int ind = n-1;
+        int target = n;
+        
+        
+    vector<vector<int>> dp(ind+2,vector<int>(target+2,-1));
+        int ans = solve(price,ind,target,dp);
+        return ans;
+    }
