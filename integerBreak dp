@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int solve(int ind,int target,vector<vector<int>> &dp){
+        
+        if(ind == 1) return 1;
+        
+           
+    if(dp[ind][target]!=-1)
+        return dp[ind][target];
+        
+        int pick = INT_MIN;
+        if(ind <= target)
+         pick = ind*solve(ind,target-ind,dp);
+        
+        int notpick = solve(ind-1,target,dp);
+        
+        return  dp[ind][target] = max(pick,notpick);
+    }
+    
+    int integerBreak(int n) {
+        
+        int ind = n-1;
+        int target = n;
+        vector<vector<int>> dp(ind+1,vector<int>(ind+3,-1));
+        int ans = solve(ind,target,dp);
+        return ans;
+        
+    }
+};
